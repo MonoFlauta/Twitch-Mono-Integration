@@ -1,6 +1,7 @@
 ﻿using System;
 using TwitchSDK;
 using TwitchSDK.Interop;
+using UniRx;
 using UnityEngine;
 
 namespace TwitchMonoIntegration
@@ -8,6 +9,8 @@ namespace TwitchMonoIntegration
     public class EditorTwitchService : TwitchService
     {
         private EditorTwitchTestView _testView;
+        private int _lastViewCount;
+        private int _lastInternalViewCount;
         
         public override void Initialize(MonoBehaviour monoBehaviour)
         {
@@ -25,19 +28,24 @@ namespace TwitchMonoIntegration
             throw new NotImplementedException();
         }
 
-        public override long LastViewerCount()
-        {
-            throw new NotImplementedException();
-        }
+        public override long LastViewerCount() => 
+            _lastViewCount;
 
         public override void SyncAuthStatus()
         {
             Log("Sync status");
         }
 
-        public override IObservable<StreamInfo> GetAndSyncStreamInfo()
+        public override IObservable<StreamInfo> GetAndSyncStreamInfo() =>
+            Observable.Return(new StreamInfo
+                {
+                    ViewerCount =  _lastInternalViewCount
+                })
+                .Do(x => _lastViewCount = (int)x.ViewerCount);
+
+        public void SetViewerCountTo(int viewerCount)
         {
-            throw new NotImplementedException();
+            _lastInternalViewCount = viewerCount;
         }
 
         private void Log(string message)
