@@ -1,5 +1,4 @@
 ﻿using System;
-using TwitchSDK;
 using TwitchSDK.Interop;
 using UniRx;
 using UnityEngine;
@@ -42,6 +41,41 @@ namespace TwitchMonoIntegration
                     ViewerCount =  _lastInternalViewCount
                 })
                 .Do(x => _lastViewCount = (int)x.ViewerCount);
+
+        public override void SetCustomRewards(CustomRewardDefinition[] newRewards)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ClearRewards()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IObservable<ChannelFollowEvent> SubscribeToChannelFollows(bool withLogs = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IObservable<ChannelSubscribeEvent> SubscribeToChannelSubscribe(bool withLogs = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IObservable<HypeTrainEvent> SubscribeToHypeTrain(bool withLogs = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IObservable<ChannelRaidEvent> SubscribeToChannelRaid(bool withLogs = true)
+        {
+            throw new NotImplementedException();
+        }
 
         public void SetViewerCountTo(int viewerCount)
         {

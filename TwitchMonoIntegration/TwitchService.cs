@@ -1,5 +1,4 @@
 ﻿using System;
-using TwitchSDK;
 using TwitchSDK.Interop;
 using UniRx;
 using UnityEngine;
@@ -39,8 +38,53 @@ namespace TwitchMonoIntegration
         /// </summary>
         /// <returns>Viewer count</returns>
         public abstract long LastViewerCount();
-
+        /// <summary>
+        /// Syncs auth status
+        /// </summary>
         public abstract void SyncAuthStatus();
+        /// <summary>
+        /// Syncs and gets stream info
+        /// </summary>
+        /// <returns>Stream info</returns>
         public abstract IObservable<StreamInfo> GetAndSyncStreamInfo();
+        /// <summary>
+        /// Sets custom rewards
+        /// </summary>
+        /// <param name="newRewards">New rewards</param>
+        public abstract void SetCustomRewards(CustomRewardDefinition[] newRewards);
+        /// <summary>
+        /// Clears current rewards
+        /// </summary>
+        public abstract void ClearRewards();
+        /// <summary>
+        /// Subscribes to Channel Point Rewards. First time initializes feature
+        /// </summary>
+        /// <param name="withLogs">If it should include logs (default = true)</param>
+        /// <returns>Observable for events</returns>
+        public abstract IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true);
+        /// <summary>
+        /// Subscribes to Channel Follows. First time initializes feature
+        /// </summary>
+        /// <param name="withLogs">If it should include logs (default = true)</param>
+        /// <returns>Observable for events</returns>
+        public abstract IObservable<ChannelFollowEvent> SubscribeToChannelFollows(bool withLogs = true);
+        /// <summary>
+        /// Subscribes to Channel Subscribes. First time initializes feature
+        /// </summary>
+        /// <param name="withLogs">If it should include logs (default = true)</param>
+        /// <returns>Observable for events</returns>
+        public abstract IObservable<ChannelSubscribeEvent> SubscribeToChannelSubscribe(bool withLogs = true);
+        /// <summary>
+        /// Subscribes to Channel Hype Train. First time initializes feature
+        /// </summary>
+        /// <param name="withLogs">If it should include logs (default = true)</param>
+        /// <returns>Observable for events</returns>
+        public abstract IObservable<HypeTrainEvent> SubscribeToHypeTrain(bool withLogs = true);
+        /// <summary>
+        /// Subscribes to Channel Raids. First time initializes feature
+        /// </summary>
+        /// <param name="withLogs">If it should include logs (default = true)</param>
+        /// <returns>Observable for events</returns>
+        public abstract IObservable<ChannelRaidEvent> SubscribeToChannelRaid(bool withLogs = true);
     }
 }

@@ -6,9 +6,6 @@ namespace TwitchMonoIntegration
 {
     public class TwitchController : MonoBehaviour
     {
-        //GUIDE: https://dev.twitch.tv/docs/game-engine-plugins/unity-guide/
-        //TODO: Check rate limits https://dev.twitch.tv/docs/api/guide/#twitch-rate-limits
-
         public static TwitchController Instance
         {
             get

@@ -12,7 +12,12 @@ namespace TwitchMonoIntegration
     {
         private GameTask<AuthenticationInfo> _authenticationInfo;
         private long _lastViewerCount = 0;
-        
+        private RealTwitchEventCustomRewardSubscriber _customRewardsSubscriber;
+        private RealTwitchEventFollowsSubscriber _eventFollowsSubscriber;
+        private RealTwitchEventSubscribeSubscriber _subscribeSubscriber;
+        private RealTwitchHypeTrainSubscriber _hypeTrainSubscriber;
+        private RealTwitchRaidSubscriber _raidSubscriber;
+
         public override void Initialize(MonoBehaviour monoBehaviour)
         {
             _authenticationInfo = GetAuthenticationInfo();
@@ -69,6 +74,46 @@ namespace TwitchMonoIntegration
             Twitch.API.GetMyStreamInfo().Task
                 .ToObservable()
                 .Do(x => _lastViewerCount = x.ViewerCount);
+
+        public override void SetCustomRewards(CustomRewardDefinition[] newRewards)
+        {
+            Twitch.API.ReplaceCustomRewards(newRewards);
+        }
+
+        public override void ClearRewards()
+        {
+            Twitch.API.ReplaceCustomRewards(new[] { new CustomRewardDefinition() });
+        }
+
+        public override IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true)
+        {
+            _customRewardsSubscriber ??= RealTwitchEventSubscriber<CustomRewardEvent>.CreateInstance<RealTwitchEventCustomRewardSubscriber>(withLogs);
+            return _customRewardsSubscriber.OnReceiveEvent();
+        }
+
+        public override IObservable<ChannelFollowEvent> SubscribeToChannelFollows(bool withLogs = true)
+        {
+            _eventFollowsSubscriber ??= RealTwitchEventSubscriber<ChannelFollowEvent>.CreateInstance<RealTwitchEventFollowsSubscriber>(withLogs);
+            return _eventFollowsSubscriber.OnReceiveEvent();
+        }
+
+        public override IObservable<ChannelSubscribeEvent> SubscribeToChannelSubscribe(bool withLogs = true)
+        {
+            _subscribeSubscriber ??= RealTwitchEventSubscriber<ChannelSubscribeEvent>.CreateInstance<RealTwitchEventSubscribeSubscriber>(withLogs);
+            return _subscribeSubscriber.OnReceiveEvent();
+        }
+
+        public override IObservable<HypeTrainEvent> SubscribeToHypeTrain(bool withLogs = true)
+        {
+            _hypeTrainSubscriber ??= RealTwitchEventSubscriber<HypeTrainEvent>.CreateInstance<RealTwitchHypeTrainSubscriber>(withLogs);
+            return _hypeTrainSubscriber.OnReceiveEvent();
+        }
+
+        public override IObservable<ChannelRaidEvent> SubscribeToChannelRaid(bool withLogs = true)
+        {
+             _raidSubscriber ??= RealTwitchEventSubscriber<ChannelRaidEvent>.CreateInstance<RealTwitchRaidSubscriber>(withLogs);
+            return _raidSubscriber.OnReceiveEvent();
+        }
 
         private GameTask<AuthenticationInfo> GetAuthenticationInfo() => 
             Twitch.API.GetAuthenticationInfo(new TwitchOAuthScope(GetScopes()));
