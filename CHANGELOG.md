@@ -1,3 +1,11 @@
+# 0.0.4
+
+## New
+- Open test key code can be set in initialize now
+
+## Fixed
+- Fix null reference por Editor Test View reference
+
 # 0.0.3
 
 ## New

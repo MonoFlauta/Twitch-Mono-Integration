@@ -19,10 +19,10 @@ namespace TwitchMonoIntegration
         public TwitchService service;
         public EditorTwitchTestView editorTwitchTestView;
 
-        public IObservable<Unit> Initialize(bool useEditor = false)
+        public IObservable<Unit> Initialize(bool useEditor = false, KeyCode openTestViewKey = KeyCode.Alpha1)
         {
             if (useEditor)
-                service = new EditorTwitchService(editorTwitchTestView);
+                service = new EditorTwitchService(editorTwitchTestView, openTestViewKey);
             else
                 service = new RealTwitchService();
             return service.Initialized.DoOnSubscribe(() =>

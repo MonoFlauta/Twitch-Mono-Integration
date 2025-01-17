@@ -10,9 +10,9 @@ namespace TwitchMonoIntegration
         private ReactiveProperty<long> _lastViewCount;
         private int _lastInternalViewCount;
 
-        public EditorTwitchService(EditorTwitchTestView editorTwitchTestView)
+        public EditorTwitchService(EditorTwitchTestView editorTwitchTestView, KeyCode openTestViewKey)
         {
-            editorTwitchTestView.Init(this);
+            editorTwitchTestView.Init(this, openTestViewKey);
         }
 
         public override void Initialize(MonoBehaviour monoBehaviour)

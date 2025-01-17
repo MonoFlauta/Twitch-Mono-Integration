@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e01ceb3a492aa54a83050181a119f91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editorTwitchTestView: {fileID: 0}
+  editorTwitchTestView: {fileID: 2123833572992319104}
 --- !u!1001 &3192513706696374513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,6 +143,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9874307eb2fb3a34bbeaef519b6a1044, type: 3}
+--- !u!114 &2123833572992319104 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3546383688737654385, guid: 9874307eb2fb3a34bbeaef519b6a1044, type: 3}
+  m_PrefabInstance: {fileID: 3192513706696374513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14cc129d7ea8444c8d8ab15e16bbdc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8872233071735208912 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6300138635170415393, guid: 9874307eb2fb3a34bbeaef519b6a1044, type: 3}

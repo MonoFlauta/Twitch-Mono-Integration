@@ -9,14 +9,15 @@ namespace TwitchMonoIntegration
     public class EditorTwitchTestView : MonoBehaviour
     {
         [Header("Control References")]
-        public KeyCode keyCode = KeyCode.Alpha1;
         public GameObject container;
         public GameObject buttonContainer;
         public Button buttonPrefab;
         public TestView[] testViews;
-        
-        public void Init(EditorTwitchService editorTwitchService)
+        private KeyCode _openTestViewKey;
+
+        public void Init(EditorTwitchService editorTwitchService, KeyCode openTestViewKey)
         {
+            _openTestViewKey = openTestViewKey;
             foreach (var testView in testViews)
                 testView.Init(editorTwitchService);
 
@@ -41,7 +42,7 @@ namespace TwitchMonoIntegration
 
         private void Update()
         {
-            if(Input.GetKeyDown(keyCode))
+            if(Input.GetKeyDown(_openTestViewKey))
                 container.SetActive(!container.activeSelf);
         }
     }
