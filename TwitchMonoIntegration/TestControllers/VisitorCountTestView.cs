@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace TwitchMonoIntegration
 {
-    internal class VisitorCountTestView : TestView
+    public class VisitorCountTestView : TestView
     {
         public TMP_InputField countInputField;
         public Button updateButton;

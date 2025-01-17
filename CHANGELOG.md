@@ -1,3 +1,9 @@
+# 0.0.3
+
+## New
+- Added a way to editor test auth status
+- Added a way to editor test view count
+
 # 0.0.2
 
 ## New

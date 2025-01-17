@@ -39,7 +39,7 @@ namespace TwitchMonoIntegration
             
             var disposable = Observable
                 .Interval(TimeSpan.FromSeconds(2))
-                .Subscribe(_ => TwitchController.Instance.Service.SyncAuthStatus())
+                .Subscribe(_ => TwitchController.Instance.service.SyncAuthStatus())
                 .AddTo(monoBehaviour);
             AuthStatus
                 .Subscribe(x =>

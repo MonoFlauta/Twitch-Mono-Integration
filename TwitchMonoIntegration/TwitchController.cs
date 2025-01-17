@@ -16,17 +16,18 @@ namespace TwitchMonoIntegration
             }
         }
         private static TwitchController _instance;
-        public TwitchService Service;
+        public TwitchService service;
+        public EditorTwitchTestView editorTwitchTestView;
 
         public IObservable<Unit> Initialize(bool useEditor = false)
         {
             if (useEditor)
-                Service = new EditorTwitchService();
+                service = new EditorTwitchService(editorTwitchTestView);
             else
-                Service = new RealTwitchService();
-            return Service.Initialized.DoOnSubscribe(() =>
+                service = new RealTwitchService();
+            return service.Initialized.DoOnSubscribe(() =>
             {
-                Service.Initialize(this);
+                service.Initialize(this);
             }).First(x => x).AsUnitObservable();
         }
     }

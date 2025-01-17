@@ -7,10 +7,14 @@ namespace TwitchMonoIntegration
 {
     public class EditorTwitchService : TwitchService
     {
-        private EditorTwitchTestView _testView;
-        private int _lastViewCount;
+        private ReactiveProperty<long> _lastViewCount;
         private int _lastInternalViewCount;
-        
+
+        public EditorTwitchService(EditorTwitchTestView editorTwitchTestView)
+        {
+            editorTwitchTestView.Init(this);
+        }
+
         public override void Initialize(MonoBehaviour monoBehaviour)
         {
             Initialized.Value = true;
@@ -22,13 +26,12 @@ namespace TwitchMonoIntegration
             throw new NotImplementedException();
         }
 
-        public override IObservable<long> ObserveViewerCount()
-        {
-            throw new NotImplementedException();
-        }
+        public override IObservable<long> ObserveViewerCount() =>
+            _lastViewCount
+                .AsObservable();
 
         public override long LastViewerCount() => 
-            _lastViewCount;
+            _lastViewCount.Value;
 
         public override void SyncAuthStatus()
         {
@@ -40,7 +43,7 @@ namespace TwitchMonoIntegration
                 {
                     ViewerCount =  _lastInternalViewCount
                 })
-                .Do(x => _lastViewCount = (int)x.ViewerCount);
+                .Do(x => _lastViewCount.Value = x.ViewerCount);
 
         public override void SetCustomRewards(CustomRewardDefinition[] newRewards)
         {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TwitchMonoIntegration
 {
-    internal abstract class TestView : MonoBehaviour
+    public abstract class TestView : MonoBehaviour
     {
         protected EditorTwitchService EditorTwitchService { get; private set; }
 

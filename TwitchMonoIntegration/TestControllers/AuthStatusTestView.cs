@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace TwitchMonoIntegration
 {
-    internal class AuthStatusTestView : TestView
+    public class AuthStatusTestView : TestView
     {
         public Button buttonLoading;
         public Button buttonWaitingForCode;
