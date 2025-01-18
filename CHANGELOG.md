@@ -1,3 +1,8 @@
+# 0.0.5
+
+## Fixed
+- Null reference for IObservable<long> ObserveViewerCount() in EditorTwitchService
+
 # 0.0.4
 
 ## New

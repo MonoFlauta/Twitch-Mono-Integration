@@ -7,7 +7,7 @@ namespace TwitchMonoIntegration
 {
     public class EditorTwitchService : TwitchService
     {
-        private ReactiveProperty<long> _lastViewCount;
+        private readonly ReactiveProperty<long> _lastViewCount = new();
         private int _lastInternalViewCount;
 
         public EditorTwitchService(EditorTwitchTestView editorTwitchTestView, KeyCode openTestViewKey)
