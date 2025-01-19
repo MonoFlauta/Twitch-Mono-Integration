@@ -4,6 +4,7 @@
 - Added ChannelPointRewardTestView
 - Added ChannelFollowTestView
 - Added ChannelRaidTestView
+- Limit Viewer count to be an integer
 
 # 0.0.5
 
