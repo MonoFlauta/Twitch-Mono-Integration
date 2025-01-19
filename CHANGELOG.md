@@ -2,6 +2,7 @@
 
 ## New
 - Add ChannelPointRewardTestView
+- Added ChannelFollowTestView
 
 # 0.0.5
 

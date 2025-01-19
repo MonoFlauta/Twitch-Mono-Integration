@@ -9,6 +9,7 @@ namespace TwitchMonoIntegration
     public class EditorTwitchService : TwitchService
     {
         private readonly ISubject<CustomRewardEvent> _customRewardEvents = new Subject<CustomRewardEvent>();
+        private readonly ISubject<ChannelFollowEvent> _channelFollowEvents = new Subject<ChannelFollowEvent>();
         private readonly ReactiveProperty<long> _lastViewCount = new();
         private int _lastInternalViewCount;
         private readonly EditorTwitchTestView _twitchTestView;
@@ -66,12 +67,19 @@ namespace TwitchMonoIntegration
 
         public override IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true) =>
             _customRewardEvents
-                .Do(x => Debug.Log($"Custom Reward {x.CustomRewardTitle} claimed by {x.RedeemerName}"));
+                .Do(x =>
+                {
+                    if(withLogs)
+                        Debug.Log($"Custom Reward {x.CustomRewardTitle} claimed by {x.RedeemerName}");
+                });
 
-        public override IObservable<ChannelFollowEvent> SubscribeToChannelFollows(bool withLogs = true)
-        {
-            throw new NotImplementedException();
-        }
+        public override IObservable<ChannelFollowEvent> SubscribeToChannelFollows(bool withLogs = true) =>
+            _channelFollowEvents
+                .Do(x =>
+                {
+                    if (withLogs)
+                        Debug.Log($"Channel Follow {x.UserDisplayName}");
+                });
 
         public override IObservable<ChannelSubscribeEvent> SubscribeToChannelSubscribe(bool withLogs = true)
         {
@@ -106,6 +114,14 @@ namespace TwitchMonoIntegration
                 CustomRewardCost = reward.Cost,
                 CustomRewardPrompt = reward.Prompt,
                 RedeemerName = redeemer
+            });
+        }
+
+        public void ChannelFollow(string username)
+        {
+            _channelFollowEvents.OnNext(new ChannelFollowEvent
+            {
+                UserDisplayName = username
             });
         }
     }
