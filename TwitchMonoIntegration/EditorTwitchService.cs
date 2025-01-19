@@ -10,6 +10,7 @@ namespace TwitchMonoIntegration
     {
         private readonly ISubject<CustomRewardEvent> _customRewardEvents = new Subject<CustomRewardEvent>();
         private readonly ISubject<ChannelFollowEvent> _channelFollowEvents = new Subject<ChannelFollowEvent>();
+        private readonly ISubject<ChannelRaidEvent> _channelRaidEvents = new Subject<ChannelRaidEvent>();
         private readonly ReactiveProperty<long> _lastViewCount = new();
         private int _lastInternalViewCount;
         private readonly EditorTwitchTestView _twitchTestView;
@@ -91,10 +92,13 @@ namespace TwitchMonoIntegration
             throw new NotImplementedException();
         }
 
-        public override IObservable<ChannelRaidEvent> SubscribeToChannelRaid(bool withLogs = true)
-        {
-            throw new NotImplementedException();
-        }
+        public override IObservable<ChannelRaidEvent> SubscribeToChannelRaid(bool withLogs = true) =>
+            _channelRaidEvents
+                .Do(x =>
+                {
+                    if(withLogs)
+                        Debug.Log($"Raid from {x.FromBroadcasterName} with {x.Viewers} viewers");
+                });
 
         public void SetViewerCountTo(int viewerCount)
         {
@@ -122,6 +126,15 @@ namespace TwitchMonoIntegration
             _channelFollowEvents.OnNext(new ChannelFollowEvent
             {
                 UserDisplayName = username
+            });
+        }
+
+        public void ChannelRaid(string fromChannel, int viewers)
+        {
+            _channelRaidEvents.OnNext(new ChannelRaidEvent
+            {
+                FromBroadcasterName = fromChannel,
+                Viewers = viewers
             });
         }
     }
