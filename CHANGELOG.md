@@ -1,3 +1,8 @@
+# 0.0.6
+
+## New
+- Add ChannelPointRewardTestView
+
 # 0.0.5
 
 ## Fixed

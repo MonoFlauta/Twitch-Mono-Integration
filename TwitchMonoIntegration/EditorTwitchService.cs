@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TwitchSDK.Interop;
 using UniRx;
 using UnityEngine;
@@ -7,12 +8,15 @@ namespace TwitchMonoIntegration
 {
     public class EditorTwitchService : TwitchService
     {
+        private readonly ISubject<CustomRewardEvent> _customRewardEvents = new Subject<CustomRewardEvent>();
         private readonly ReactiveProperty<long> _lastViewCount = new();
         private int _lastInternalViewCount;
+        private readonly EditorTwitchTestView _twitchTestView;
 
         public EditorTwitchService(EditorTwitchTestView editorTwitchTestView, KeyCode openTestViewKey)
         {
-            editorTwitchTestView.Init(this, openTestViewKey);
+            _twitchTestView = editorTwitchTestView;
+            _twitchTestView.Init(this, openTestViewKey);
         }
 
         public override void Initialize(MonoBehaviour monoBehaviour)
@@ -47,18 +51,22 @@ namespace TwitchMonoIntegration
 
         public override void SetCustomRewards(CustomRewardDefinition[] newRewards)
         {
-            throw new NotImplementedException();
+            GetChannelPointsRewardTestView()
+                .SetRewardsWith(newRewards);
         }
 
         public override void ClearRewards()
         {
-            throw new NotImplementedException();
+            GetChannelPointsRewardTestView().SetRewardsWith(Array.Empty<CustomRewardDefinition>());
         }
 
-        public override IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true)
-        {
-            throw new NotImplementedException();
-        }
+        private ChannelPointsRewardTestView GetChannelPointsRewardTestView() =>
+            (ChannelPointsRewardTestView)_twitchTestView.testViews
+                .First(x => x is ChannelPointsRewardTestView);
+
+        public override IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true) =>
+            _customRewardEvents
+                .Do(x => Debug.Log($"Custom Reward {x.CustomRewardTitle} claimed by {x.RedeemerName}"));
 
         public override IObservable<ChannelFollowEvent> SubscribeToChannelFollows(bool withLogs = true)
         {
@@ -88,6 +96,17 @@ namespace TwitchMonoIntegration
         private void Log(string message)
         {
             Debug.Log($"Editor Twitch Service: {message}");
+        }
+
+        public void ClaimReward(CustomRewardDefinition reward, string redeemer)
+        {
+            _customRewardEvents.OnNext(new CustomRewardEvent
+            {
+                CustomRewardTitle = reward.Title,
+                CustomRewardCost = reward.Cost,
+                CustomRewardPrompt = reward.Prompt,
+                RedeemerName = redeemer
+            });
         }
     }
 }
