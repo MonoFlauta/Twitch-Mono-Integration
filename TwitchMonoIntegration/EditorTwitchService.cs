@@ -110,22 +110,24 @@ namespace TwitchMonoIntegration
             Debug.Log($"Editor Twitch Service: {message}");
         }
 
-        public void ClaimReward(CustomRewardDefinition reward, string redeemer)
+        public void ClaimReward(CustomRewardDefinition reward, string redeemer, string id)
         {
             _customRewardEvents.OnNext(new CustomRewardEvent
             {
                 CustomRewardTitle = reward.Title,
                 CustomRewardCost = reward.Cost,
                 CustomRewardPrompt = reward.Prompt,
-                RedeemerName = redeemer
+                RedeemerName = redeemer,
+                RedeemerId = id
             });
         }
 
-        public void ChannelFollow(string username)
+        public void ChannelFollow(string username, string userId)
         {
             _channelFollowEvents.OnNext(new ChannelFollowEvent
             {
-                UserDisplayName = username
+                UserDisplayName = username,
+                UserId = userId
             });
         }
 

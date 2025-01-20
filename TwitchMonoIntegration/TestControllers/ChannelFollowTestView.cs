@@ -8,15 +8,16 @@ namespace TwitchMonoIntegration
     public class ChannelFollowTestView : TestView
     {
         public Button button;
-        public TMP_InputField inputField;
+        public TMP_InputField usernameInputField;
+        public TMP_InputField idInputField;
 
         protected override void Init()
         {
-            inputField.text = "TestUser";
+            usernameInputField.text = "TestUser";
             button.OnPointerClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    EditorTwitchService.ChannelFollow(inputField.text);
+                    EditorTwitchService.ChannelFollow(usernameInputField.text, idInputField.text);
                 }).AddTo(this);
         }
     }

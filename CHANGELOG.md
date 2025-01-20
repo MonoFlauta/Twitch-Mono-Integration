@@ -1,3 +1,9 @@
+# 0.0.7
+
+## New
+- Added support to set user id for ChannelPointRewardTestView
+- Added support to set user id for ChannelFollowTestView
+
 # 0.0.6
 
 ## New

@@ -10,12 +10,13 @@ namespace TwitchMonoIntegration
     public class ChannelPointsRewardTestView : TestView
     {
         public Button buttonPrefab;
-        public TMP_InputField inputField;
+        public TMP_InputField usernameInputField;
+        public TMP_InputField idInputField;
         public GameObject buttonContainer;
 
         protected override void Init()
         {
-            inputField.text = "TestUser";
+            usernameInputField.text = "TestUser";
         }
 
         public void SetRewardsWith(CustomRewardDefinition[] rewards)
@@ -28,7 +29,7 @@ namespace TwitchMonoIntegration
                 button.GetComponentInChildren<TextMeshProUGUI>().text = reward.Title;
                 button.OnPointerClickAsObservable().Subscribe(_ =>
                 {
-                    EditorTwitchService.ClaimReward(reward, inputField.text);
+                    EditorTwitchService.ClaimReward(reward, usernameInputField.text, idInputField.text);
                 }).AddTo(button);
             }
         }
