@@ -1,3 +1,8 @@
+# 0.0.8
+
+## Fixed
+- Fix naming for User Id test in ChannelPointsRewardTestView
+
 # 0.0.7
 
 ## New
