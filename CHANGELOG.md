@@ -1,7 +1,8 @@
 # 0.0.8
 
 ## Fixed
-- Fix naming for User Id test in ChannelPointsRewardTestView
+- Naming for User Id test in ChannelPointsRewardTestView
+- How on finish was called for Pool 
 
 # 0.0.7
 

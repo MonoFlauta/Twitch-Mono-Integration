@@ -11,7 +11,7 @@ namespace TwitchMonoIntegration
     public class RealTwitchService : TwitchService
     {
         private GameTask<AuthenticationInfo> _authenticationInfo;
-        private long _lastViewerCount = 0;
+        private long _lastViewerCount;
         private RealTwitchEventCustomRewardSubscriber _customRewardsSubscriber;
         private RealTwitchEventFollowsSubscriber _eventFollowsSubscriber;
         private RealTwitchEventSubscribeSubscriber _subscribeSubscriber;
@@ -82,7 +82,7 @@ namespace TwitchMonoIntegration
 
         public override void ClearRewards()
         {
-            Twitch.API.ReplaceCustomRewards(new[] { new CustomRewardDefinition() });
+            Twitch.API.ReplaceCustomRewards(new CustomRewardDefinition());
         }
 
         public override IObservable<CustomRewardEvent> SubscribeToChannelPointRewards(bool withLogs = true)
