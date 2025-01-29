@@ -1,3 +1,10 @@
+# 0.0.9
+## New
+- Method Initialize and Initialized are separated in TwitchController
+- Initialize method returns the code for authentication
+## Fixed
+- Fixed url for authentication
+
 # 0.0.8
 
 ## Fixed

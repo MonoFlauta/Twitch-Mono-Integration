@@ -22,10 +22,11 @@ namespace TwitchMonoIntegration
             _twitchTestView.Init(this, openTestViewKey);
         }
 
-        public override void Initialize(MonoBehaviour monoBehaviour)
+        public override ISubject<string> Initialize(MonoBehaviour monoBehaviour)
         {
             Initialized.Value = true;
             AuthStatus.Value = TwitchSDK.Interop.AuthStatus.Loading;
+            return new Subject<string>();
         }
 
         public override TwitchPool NewSimplePool(string title, string[] choices, long duration)

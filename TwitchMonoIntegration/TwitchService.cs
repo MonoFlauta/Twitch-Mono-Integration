@@ -16,10 +16,11 @@ namespace TwitchMonoIntegration
         /// </summary>
         public readonly ReactiveProperty<AuthStatus> AuthStatus = new(TwitchSDK.Interop.AuthStatus.Loading);
         /// <summary>
-        /// Called by the Twitch Controller. Unless you are using your own implementation, you won't need this one
+        /// Called by the Twitch Controller. Unless you are using your own implementation, you won't need this one. It returns the code for authentication if needed.
         /// </summary>
         /// <param name="monoBehaviour"></param>
-        public abstract void Initialize(MonoBehaviour monoBehaviour);
+        /// <returns>Subject with the code for authentication if needed</returns>
+        public abstract ISubject<string> Initialize(MonoBehaviour monoBehaviour);
         /// <summary>
         /// Lets you start a new simple pool
         /// </summary>

@@ -18,9 +18,10 @@ namespace TwitchMonoIntegration
         private RealTwitchHypeTrainSubscriber _hypeTrainSubscriber;
         private RealTwitchRaidSubscriber _raidSubscriber;
 
-        public override void Initialize(MonoBehaviour monoBehaviour)
+        public override ISubject<string> Initialize(MonoBehaviour monoBehaviour)
         {
             _authenticationInfo = GetAuthenticationInfo();
+            ISubject<string> result = new Subject<string>();
 
             AuthStatus
                 .First(x => x == TwitchSDK.Interop.AuthStatus.WaitingForCode)
@@ -31,8 +32,8 @@ namespace TwitchMonoIntegration
                         .First()
                         .Subscribe(x =>
                         {
-                            Application.OpenURL($"{_authenticationInfo.MaybeResult.Uri}{_authenticationInfo.MaybeResult.UserCode}");
-                            Log($"User code: {_authenticationInfo.MaybeResult.UserCode}");
+                            result.OnNext(_authenticationInfo.MaybeResult.UserCode);
+                            Application.OpenURL($"{_authenticationInfo.MaybeResult.Uri}");
                         });
                 })
                 .AddTo(monoBehaviour);
@@ -49,6 +50,8 @@ namespace TwitchMonoIntegration
                     Initialized.Value = true;
                     disposable?.Dispose();
                 }).AddTo(monoBehaviour);
+
+            return result;
         }
 
         public override TwitchPool NewSimplePool(string title, string[] choices, long duration) =>
