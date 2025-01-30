@@ -119,10 +119,7 @@ namespace TwitchMonoIntegration
         }
 
         private GameTask<AuthenticationInfo> GetAuthenticationInfo() => 
-            Twitch.API.GetAuthenticationInfo(new TwitchOAuthScope(GetScopes()));
-
-        private static string GetScopes() => 
-            TwitchOAuthScope.Bits.Read.Scope + " " + TwitchOAuthScope.Channel.ManageBroadcast.Scope + " " + TwitchOAuthScope.Channel.ManagePolls.Scope + " " + TwitchOAuthScope.Channel.ManagePredictions.Scope + " " + TwitchOAuthScope.Channel.ManageRedemptions.Scope + " " + TwitchOAuthScope.Channel.ReadHypeTrain.Scope + " " + TwitchOAuthScope.Clips.Edit.Scope + " " + TwitchOAuthScope.User.ReadSubscriptions.Scope;
+            Twitch.API.GetAuthenticationInfo(Resources.Load<MonoTwitchSettingsScriptableObject>("TwitchMonoSettings").GetAuthScope);
 
         private void Log(string message)
         {
