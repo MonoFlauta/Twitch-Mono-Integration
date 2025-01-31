@@ -1,3 +1,8 @@
+# 0.0.10
+## New 
+- Auto create Scriptable Object with the permissions
+- Take Auth values from ScriptableObject
+
 # 0.0.9
 ## New
 - Method Initialize and Initialized are separated in TwitchController
