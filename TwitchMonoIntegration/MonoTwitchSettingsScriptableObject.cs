@@ -10,13 +10,14 @@ public class MonoTwitchSettingsScriptableObject : ScriptableObject
     public bool channelManageBroadcast;
     public bool channelManageRedemptions;
     public bool channelReadHypeTrain;
+    public bool channelManageRaids;
     [Header("Clips")]
     public bool clipEdit;
     [Header("User")]
     public bool userReadSubscriptions;
     [Header("Bits")]
     public bool bitsRead;
-
+    [Header("Other")]
     public string[] otherScopes;
 
     public TwitchOAuthScope[] GetAuthScope =>
@@ -35,10 +36,15 @@ public class MonoTwitchSettingsScriptableObject : ScriptableObject
             result.Add(new TwitchOAuthScope("channel:manage:redemptions"));
         if(channelReadHypeTrain)
             result.Add(new TwitchOAuthScope("channel:read:hype_train"));
+        if(channelManageRaids)
+            result.Add(new TwitchOAuthScope("channel:manage:raids"));
+        
         if(clipEdit)
             result.Add(new TwitchOAuthScope("clips:edit"));
+        
         if(userReadSubscriptions)
             result.Add(new TwitchOAuthScope("user:read:subscriptions"));
+        
         if(bitsRead)
             result.Add(new TwitchOAuthScope("bits:read"));
         return result;
