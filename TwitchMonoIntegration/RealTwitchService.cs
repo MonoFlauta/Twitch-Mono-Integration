@@ -118,6 +118,9 @@ namespace TwitchMonoIntegration
             return _raidSubscriber.OnReceiveEvent();
         }
 
+        public override IObservable<ClipInfo> CreateClip(bool withDelay = false) => 
+            Twitch.API.CreateClip(withDelay).Task.ToObservable();
+
         private GameTask<AuthenticationInfo> GetAuthenticationInfo() => 
             Twitch.API.GetAuthenticationInfo(Resources.Load<MonoTwitchSettingsScriptableObject>("TwitchMonoSettings").GetAuthScope);
 
