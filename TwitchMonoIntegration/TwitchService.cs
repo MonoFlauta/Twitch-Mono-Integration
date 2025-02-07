@@ -87,5 +87,11 @@ namespace TwitchMonoIntegration
         /// <param name="withLogs">If it should include logs (default = true)</param>
         /// <returns>Observable for events</returns>
         public abstract IObservable<ChannelRaidEvent> SubscribeToChannelRaid(bool withLogs = true);
+        /// <summary>
+        /// Creates a clip from "about 85 seconds of the stream before the call and about 5 seconds after the call"
+        /// </summary>
+        /// <param name="withDelay">"If false, the API captures the clip at the point in time that the viewer requests it (this is the same experience that the Twitch UX provides). If true, Twitch adds a delay before capturing the clip, which basically shifts the capture window to the right slightly"</param>
+        /// <returns>Returns the observable to create the clip</returns>
+        public abstract IObservable<ClipInfo> CreateClip(bool withDelay = false);
     }
 }

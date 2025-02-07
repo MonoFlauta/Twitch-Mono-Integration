@@ -1,3 +1,7 @@
+# 0.0.11
+# New
+- Added support to create clips
+
 # 0.0.10
 ## New 
 - Auto create Scriptable Object with the permissions

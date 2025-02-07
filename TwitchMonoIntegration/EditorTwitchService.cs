@@ -105,6 +105,12 @@ namespace TwitchMonoIntegration
                         Debug.Log($"Raid from {x.FromBroadcasterName} with {x.Viewers} viewers");
                 });
 
+        public override IObservable<ClipInfo> CreateClip(bool withDelay = false) =>
+            new Subject<ClipInfo>().Do(_ =>
+            {
+                Debug.Log("Clip Created");
+            });
+
         public void SetViewerCountTo(int viewerCount)
         {
             _lastInternalViewCount = viewerCount;
