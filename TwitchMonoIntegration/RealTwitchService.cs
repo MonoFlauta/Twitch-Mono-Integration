@@ -24,7 +24,14 @@ namespace TwitchMonoIntegration
             ISubject<string> result = new Subject<string>();
 
             AuthStatus
-                .First(x => x == TwitchSDK.Interop.AuthStatus.WaitingForCode)
+                .Where(x => x == TwitchSDK.Interop.AuthStatus.LoggedOut)
+                .Subscribe(_ =>
+                {
+                    GetAuthenticationInfo();
+                }).AddTo(monoBehaviour);
+
+            AuthStatus
+                .Where(x => x == TwitchSDK.Interop.AuthStatus.WaitingForCode)
                 .Subscribe(_ =>
                 {
                     _authenticationInfo.ObserveEveryValueChanged(x => x.MaybeResult)

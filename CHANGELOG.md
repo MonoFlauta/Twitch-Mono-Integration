@@ -1,3 +1,7 @@
+# 0.0.12
+## Fixed
+- Re-offer authorization on logged out
+
 # 0.0.11
 ## New
 - Added support to create clips
