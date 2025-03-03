@@ -34,13 +34,12 @@ namespace TwitchMonoIntegration
                 .Where(x => x == TwitchSDK.Interop.AuthStatus.WaitingForCode)
                 .Subscribe(_ =>
                 {
-                    _authenticationInfo.ObserveEveryValueChanged(x => x.MaybeResult)
-                        .Where(x => x != null)
-                        .Subscribe(_ =>
-                        {
-                            result.OnNext(_authenticationInfo.MaybeResult.UserCode);
-                            Application.OpenURL($"{_authenticationInfo.MaybeResult.Uri}");
-                        });
+                    if (_authenticationInfo.MaybeResult != null)
+                        OnReceiveCode(result);
+                    else
+                        _authenticationInfo.ObserveEveryValueChanged(x => x.MaybeResult)
+                            .Where(x => x != null)
+                            .Subscribe(_ => { OnReceiveCode(result); });
                 })
                 .AddTo(monoBehaviour);
             
@@ -58,6 +57,12 @@ namespace TwitchMonoIntegration
                 }).AddTo(monoBehaviour);
 
             return result;
+        }
+
+        private void OnReceiveCode(ISubject<string> result)
+        {
+            result.OnNext(_authenticationInfo.MaybeResult.UserCode);
+            Application.OpenURL($"{_authenticationInfo.MaybeResult.Uri}");
         }
 
         public override TwitchPool NewSimplePool(string title, string[] choices, long duration) =>
