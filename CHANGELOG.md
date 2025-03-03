@@ -1,3 +1,7 @@
+# 0.0.14
+## Fixed
+- Attempt to update code value for Auth
+
 # 0.0.13
 ## Fixed
 - Open URL more than once with the code if needed
