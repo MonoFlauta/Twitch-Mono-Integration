@@ -36,8 +36,7 @@ namespace TwitchMonoIntegration
                 {
                     _authenticationInfo.ObserveEveryValueChanged(x => x.MaybeResult)
                         .Where(x => x != null)
-                        .First()
-                        .Subscribe(x =>
+                        .Subscribe(_ =>
                         {
                             result.OnNext(_authenticationInfo.MaybeResult.UserCode);
                             Application.OpenURL($"{_authenticationInfo.MaybeResult.Uri}");

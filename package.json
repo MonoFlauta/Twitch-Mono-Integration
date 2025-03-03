@@ -1,6 +1,6 @@
 {
   "name": "com.monoflauta.twitchmonointegration",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "displayName": "Twitch Mono Integration",
   "description": "An easy way to implement Twitch SDK in Unity with UniRx. Feel free to use it, ask for stuff and/or help adding more to it!",
   "unity": "2022.3",

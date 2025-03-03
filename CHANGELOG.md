@@ -1,3 +1,7 @@
+# 0.0.13
+## Fixed
+- Open URL more than once with the code if needed
+
 # 0.0.12
 ## Fixed
 - Re-offer authorization on logged out
