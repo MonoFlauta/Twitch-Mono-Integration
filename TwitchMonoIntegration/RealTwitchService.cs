@@ -65,8 +65,8 @@ namespace TwitchMonoIntegration
             Application.OpenURL($"{_authenticationInfo.MaybeResult.Uri}");
         }
 
-        public override TwitchPool NewSimplePool(string title, string[] choices, long duration) =>
-            new RealTwitchPool(Twitch.API.NewPoll(new PollDefinition
+        public override TwitchPoll NewSimplePoll(string title, string[] choices, long duration) =>
+            new RealTwitchPoll(Twitch.API.NewPoll(new PollDefinition
             {
                 Title = title,
                 Choices = choices,

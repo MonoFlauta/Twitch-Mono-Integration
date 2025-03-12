@@ -1,3 +1,9 @@
+# 0.0.15
+## Fixed
+- Fix typo in Poll events
+- Fix option to subscribe to Poll
+- Fix result calls for Poll
+
 # 0.0.14
 ## Fixed
 - Attempt to update code value for Auth
@@ -30,7 +36,7 @@
 
 ## Fixed
 - Naming for User Id test in ChannelPointsRewardTestView
-- How on finish was called for Pool 
+- How on finish was called for Poll 
 
 # 0.0.7
 

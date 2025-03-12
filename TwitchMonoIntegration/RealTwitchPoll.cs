@@ -6,25 +6,25 @@ using UniRx;
 
 namespace TwitchMonoIntegration
 {
-    public class RealTwitchPool : TwitchPool
+    public class RealTwitchPoll : TwitchPoll
     {
-        private readonly GameTask<Poll> _pool;
+        private readonly GameTask<Poll> _poll;
         private readonly ISubject<Dictionary<string, long>> _onResultFinish;
 
-        public RealTwitchPool(GameTask<Poll> pool)
+        public RealTwitchPoll(GameTask<Poll> poll)
         {
-            _pool = pool;
+            _poll = poll;
             _onResultFinish = new Subject<Dictionary<string, long>>();
-            _pool.GetAwaiter().OnCompleted(() =>
-            {
-                _onResultFinish.OnNext(Results());
-            });
         }
 
         public override Dictionary<string, long> Results() => 
-            _pool.MaybeResult.Info.Choices.ToDictionary(x => x.Title, x => x.Votes);
+            _poll.MaybeResult.Info.Choices.ToDictionary(x => x.Title, x => x.Votes);
 
         public override IObservable<Dictionary<string, long>> ResultsOnFinish() =>
             _onResultFinish;
+
+        public override IObservable<Poll> Start() => 
+            _poll.Task.ToObservable()
+                .DoOnSubscribe(() => _poll.GetAwaiter().OnCompleted(() => _onResultFinish.OnNext(Results())));
     }
 }
