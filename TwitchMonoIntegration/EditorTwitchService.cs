@@ -29,7 +29,7 @@ namespace TwitchMonoIntegration
             return new Subject<string>();
         }
 
-        public override TwitchPool NewSimplePool(string title, string[] choices, long duration)
+        public override TwitchPoll NewSimplePoll(string title, string[] choices, long duration)
         {
             throw new NotImplementedException();
         }

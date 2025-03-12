@@ -22,13 +22,13 @@ namespace TwitchMonoIntegration
         /// <returns>Subject with the code for authentication if needed</returns>
         public abstract ISubject<string> Initialize(MonoBehaviour monoBehaviour);
         /// <summary>
-        /// Lets you start a new simple pool
+        /// Lets you start a new simple poll
         /// </summary>
-        /// <param name="title">Title for the pool</param>
-        /// <param name="choices">Choices for the pool</param>
-        /// <param name="duration">Duration, in seconds, for the pool</param>
-        /// <returns>Returns a TwitchPool that contains the results and status</returns>
-        public abstract TwitchPool NewSimplePool(string title, string[] choices, long duration);
+        /// <param name="title">Title for the poll</param>
+        /// <param name="choices">Choices for the poll</param>
+        /// <param name="duration">Duration, in seconds, for the poll</param>
+        /// <returns>Returns a TwitchPoll that contains the results and status</returns>
+        public abstract TwitchPoll NewSimplePoll(string title, string[] choices, long duration);
         /// <summary>
         /// Lets you know whenever the viewer count changes
         /// </summary>
