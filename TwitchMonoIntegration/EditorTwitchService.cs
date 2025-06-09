@@ -49,7 +49,9 @@ namespace TwitchMonoIntegration
         public override IObservable<StreamInfo> GetAndSyncStreamInfo() =>
             Observable.Return(new StreamInfo
                 {
-                    ViewerCount =  _lastInternalViewCount
+                    ViewerCount =  _lastInternalViewCount,
+                    UserId = "EditorId",
+                    UserName = "EditorUsername"
                 })
                 .Do(x => _lastViewCount.Value = x.ViewerCount);
 
