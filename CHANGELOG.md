@@ -1,3 +1,8 @@
+# 0.0.16
+## New
+- Added UserId for EditorTwitchService
+- Added Username for EditorTwitchService
+
 # 0.0.15
 ## Fixed
 - Fix typo in Poll events
